@@ -10,15 +10,17 @@ $password = 'root';
 
 $pdo = new PDO($dsn, $username, $password);
 
-$select = $pdo->prepare('select * from memo');
-$results = $select->execute();
 $detail = filter_input(INPUT_POST, 'detail');
 
-if ($detail !== null) {
+
+if (!empty($detail)) {
     $insert = $pdo->prepare('insert into memo values (null, :details)');
     $insert->bindParam( ':details', $detail);
     $insert->execute();
 }
+
+$select = $pdo->prepare('select * from memo');
+$results = $select->execute();
 
 ?>
 <html lang="ja">
